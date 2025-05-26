@@ -42,7 +42,7 @@ class DataEndpointActions(BaseActions):
 
   @rule_action()
   def under_usage_resource(self) -> None:
-    self.send_email_notification('storage_team', f'Under usage detected for data endpoint "{self.endpoint}"')
+    self.send_email_notification('team_member', f'Under usage detected for data endpoint "{self.endpoint}"')
   
   @rule_action(params={'inactive_days': FIELD_NUMERIC})
   def inactive_resource(self, inactive_days) -> None:
@@ -85,7 +85,7 @@ endpoints = [
 ]
 
 for endpoint in endpoints:
-  actions = DataEndpointActions(endpoint.associated_email)
+  actions = DataEndpointActions(endpoint.endpoint_identifier)
   run_all(
     rule_list=rules,
     defined_variables=DataEndpointVariables(endpoint),
